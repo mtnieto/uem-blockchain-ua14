@@ -51,14 +51,40 @@ async function queryCar(id){
     }
 }
 
+async function queryAllCars(){
+    try{
+        const contract = network.getContract('fabcar');
+        result = await contract.evaluateTransaction('queryAllCars');
+        console.log('Get from chaincode with result', result.toString());
+    } catch(err){
+        throw err;    
+    }
+}
+async function changeCarOwner(id, owner){
+    try{
+        const contract = network.getContract('fabcar');
+
+        let result = await contract.submitTransaction('ChangeCarOwner', id,  owner);
+    
+        console.log('Transaction has been submitted with result', result.toString());
+    } catch(err){
+        throw err;
+    }
+   
+}
+
+
 async function main() {
     try {
     console.log("Connecting network");
     await connectNetwork();
-    console.log("Creating car");
-    await createCar('CAR37', 'Mazda', "MAzda3", "white", "Maritere")
-    console.log("Querying car");
-    await queryCar('CAR37');
+    // console.log("Creating car");
+    // await createCar('CAR37', 'Mazda', "MAzda3", "white", "Maritere")
+    // console.log("Querying car");
+    // await queryCar('CAR37');
+    //await queryAllCars();
+     await changeCarOwner('CAR37', 'Juan');
+      await queryCar('CAR37');
     console.log("Everything went ok...disconnecting")
     await disconnectNetwork()
 
