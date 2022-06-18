@@ -40,7 +40,7 @@
                 "ssl-target-name-override": "orderer0.uem.com"
             },
             "tlsCACerts": {
-                "path": "/Users/mtng/go/src/uem-blockchain-ua13/crypto-config/ordererOrganizations/uem.com/orderers/orderer0.uem.com/msp/tlscacerts/tlsca.uem.com-cert.pem"
+                "path": "/Users/mtng/git/uem-blockchain-ua13/crypto-config/ordererOrganizations/uem.com/orderers/orderer0.uem.com/msp/tlscacerts/tlsca.uem.com-cert.pem"
             }
         }
     },
@@ -49,7 +49,7 @@
         "peer0.org1.uem.com": {
             "url": "grpcs://localhost:7051",
             "tlsCACerts": {
-                "path": "/Users/mtng/go/src/uem-blockchain-ua13/crypto-config/peerOrganizations/org1.uem.com/peers/peer0.org1.uem.com/tls/ca.crt"
+                "path": "/Users/mtng/git/uem-blockchain-ua13/crypto-config/peerOrganizations/org1.uem.com/peers/peer0.org1.uem.com/tls/ca.crt"
 
             },
             "grpcOptions": {
@@ -63,9 +63,7 @@
         "ca.org1.uem.com": {
             "url": "https://localhost:7054",
             "caName": "ca.org1.uem.com",
-            "tlsCACerts": {
-                "pem": "-----BEGINCERTIFICATE-----MIICNDCCAdugAwIBAgIQPnfu9AWNZDQ6MrUEFj082TAKBggqhkjOPQQDAjBlMQswCQYDVQQGEwJFUzEPMA0GA1UECBMGTWFkcmlkMQ8wDQYDVQQHEwZNYWRyaWQxFjAUBgNVBAoTDW9yZzEudW5pci5jb20xHDAaBgNVBAMTE3Rsc2NhLm9yZzEudW5pci5jb20wHhcNMjAwNjA2MDg1NDAwWhcNMzAwNjA0MDg1NDAwWjBlMQswCQYDVQQGEwJFUzEPMA0GA1UECBMGTWFkcmlkMQ8wDQYDVQQHEwZNYWRyaWQxFjAUBgNVBAoTDW9yZzEudW5pci5jb20xHDAaBgNVBAMTE3Rsc2NhLm9yZzEudW5pci5jb20wWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAARp7fPXGwfJO4SW/JKVJ9VDDBbWa3DmRXp01JiYZb/y3Hvm+Rq9CC2eWFueIAwyndkzcr6Yg5z5nIPs39GInuw0o20wazAOBgNVHQ8BAf8EBAMCAaYwHQYDVR0lBBYwFAYIKwYBBQUHAwIGCCsGAQUFBwMBMA8GA1UdEwEB/wQFMAMBAf8wKQYDVR0OBCIEIPZM/TKqs55NJ90MOb/bVds4WnnuUoLNWF7enBRjurE3MAoGCCqGSM49BAMCA0cAMEQCIHspoQl2Ze9XOXee56kCy+ZvaaxgAi5VZMzoC4OTY53lAiAXYmSzGz92BJYrXkb6YHxum6fBmiSl4sLTrBwgScsnUg==-----ENDCERTIFICATE-----"
-            },
+            "tlsCACerts":  "/Users/mtng/git/uem-blockchain-ua13/crypto-config/peerOrganizations/org1.uem.com/tlsca/tlsca.org1.uem.com-cert.pem",
             "httpOptions": {
                 "verify": false
             }

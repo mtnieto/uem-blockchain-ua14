@@ -11,9 +11,9 @@ let network, gateway;
 async function connectNetwork(){
     const walletPath = '/tmp/hfnode/wallet';
     const wallet = await Wallets.newFileSystemWallet(walletPath);
-    gateway = new Gateway();
-
+   gateway = new Gateway();
     await wallet.get("adminCA");
+ //   console.log(wallet)
     await gateway.connect(ccp, {
         wallet: wallet,
         identity: "adminCA",
@@ -22,71 +22,70 @@ async function connectNetwork(){
             asLocalhost: true,
         }
     });
-   network = await gateway.getNetwork('channel1');
+    //console.log(gateway)
+ network = await gateway.getNetwork('channel1');
+  // console.log(network)
 }
 async function disconnectNetwork(){
     await gateway.disconnect();
 
 }
-async function createCar(id, make, model, color, owner){
-    try{
-        const contract = network.getContract('fabcar');
-
-        let result = await contract.submitTransaction('createCar', id, make, model, color, owner);
-    
-        console.log('Transaction has been submitted with result', result.toString());
-    } catch(err){
-        throw err;
-    }
-   
-}
 
 async function queryCar(id){
     try{
-        const contract = network.getContract('fabcar');
-        result = await contract.evaluateTransaction('queryCar', id);
-        console.log('Get from chaincode with result', result.toString());
+        const contract = network.getContract('fabcar')
+        const result = await contract.evaluateTransaction('queryCar', id)
+        console.log(JSON.parse(result.toString()))
     } catch(err){
-        throw err;    
+        console.log(err);
     }
 }
 
 async function queryAllCars(){
     try{
-        const contract = network.getContract('fabcar');
-        result = await contract.evaluateTransaction('queryAllCars');
-        console.log('Get from chaincode with result', result.toString());
+        const contract = network.getContract('fabcar')
+        const result = await contract.evaluateTransaction('queryAllCars')
+       console.log(result.toString())
     } catch(err){
-        throw err;    
+        console.log(err);
     }
 }
-async function changeCarOwner(id, owner){
+
+async function changeCarOwner(){
     try{
-        const contract = network.getContract('fabcar');
+        const contract = network.getContract('fabcar')
 
-        let result = await contract.submitTransaction('ChangeCarOwner', id,  owner);
-    
-        console.log('Transaction has been submitted with result', result.toString());
+        const result = await contract.submitTransaction('changeCarOwner', 'CAR10', 'SORPRESA')
+       console.log(result.toString())
     } catch(err){
-        throw err;
+        console.log(err);
     }
-   
 }
 
+
+
+
+async function createCar(id, make, model, color, owner){
+    try{
+        const contract = network.getContract('fabcar')
+        console.log(contract)
+        const result = await contract.submitTransaction('createCar', id, make, model, color, owner)
+        console.log("Hola" , result.toString())
+    } catch(err){
+        console.log(err);
+    }
+}
 
 async function main() {
     try {
     console.log("Connecting network");
     await connectNetwork();
-    // console.log("Creating car");
-    // await createCar('CAR37', 'Mazda', "MAzda3", "white", "Maritere")
-    // console.log("Querying car");
-    // await queryCar('CAR37');
-    //await queryAllCars();
-     await changeCarOwner('CAR37', 'Juan');
-      await queryCar('CAR37');
-    console.log("Everything went ok...disconnecting")
-    await disconnectNetwork()
+    //await queryCar('CAR12');
+        await changeCarOwner();
+    //await createCar('CAR11', "Mazda", "Mx5", "Black", "YoMisma")
+     await queryCar('CAR10')
+    // console.log("Everything went ok...disconnecting")
+    // await disconnectNetwork() 
 
 
 

@@ -5,7 +5,7 @@
 'use strict';
 
 const FabricCAServices = require('fabric-ca-client');
-const {Gateway, Wallets, X509WalletMixin} = require('fabric-network');
+const { Wallets, X509WalletMixin} = require('fabric-network');
 const fs = require('fs');
 const path = require('path');
 const { config } = require('process');
@@ -35,6 +35,7 @@ async function configureFileSystemWallet(){
 async function enrollAdmin() {
     try {
         const ca = connectCA();
+        console.log(ca)
         const wallet = await configureFileSystemWallet();
 
         // Check to see if we've already enrolled the admin user.
@@ -44,8 +45,9 @@ async function enrollAdmin() {
             // return;
         }
 
-        // Enroll the admin user, and import the new identity into the wallet.
-        const enrollment = await ca.enroll({enrollmentID: 'adminCA', enrollmentSecret: 'adminpw'});
+        // // Enroll the admin user, and import the new identity into the wallet.
+        const enrollment = await ca.enroll({ enrollmentID: 'adminCA', enrollmentSecret: 'adminpw', profile: 'tls' });
+        console.log(enrollment)
         const identity = {
             credentials: {
                 certificate: enrollment.certificate,
@@ -57,7 +59,7 @@ async function enrollAdmin() {
             type: 'X.509'
         };
         await wallet.put('adminCA', identity);
-        console.log('Successfully enrolled admin user "admin" and imported it into the wallet');
+        // console.log('Successfully enrolled admin user "admin" and imported it into the wallet');
 
     } catch (error) {
         console.error(`Error": ${error}`);
@@ -133,9 +135,9 @@ async function enrollUser(userId, secret){
 
 }
 async function main() {
-    await enrollAdmin();
-    await registerUser('user10', 'thisisthepassword');
-    await enrollUser('user10', 'thisisthepassword');
+   await enrollAdmin();
+//    await registerUser('userUEM', 'thisisthepassword');
+//     await enrollUser('userUEM', 'thisisthepassword');
 
 }
 main();
